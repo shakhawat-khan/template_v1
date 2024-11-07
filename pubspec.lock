@@ -370,6 +370,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.2"
+  http_interceptor:
+    dependency: "direct main"
+    description:
+      name: http_interceptor
+      sha256: "288c6ded4a2c66de2730a16b30cbd29d05d042a5e61304d9b4be0e16378f4082"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   http_mock_adapter:
     dependency: transitive
     description:
@@ -831,11 +839,27 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.4.1"
+  talker_http_logger:
+    dependency: "direct main"
+    description:
+      name: talker_http_logger
+      sha256: "7b04602dc16e195edfc0c10855eaa153c0f175c7054e32009ed5ac02b81b5c0d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0-dev.11"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
       sha256: "515d2e5803928b2bab42108f710c814743965f939be2b4261f9c3045ef8a3fba"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.4.1"
+  talker_riverpod_logger:
+    dependency: "direct main"
+    description:
+      name: talker_riverpod_logger
+      sha256: "6b8efe833b851f68353d5d32ae2dbf265a617e89e53b2b4f2fcd6548a259bf20"
       url: "https://pub.dev"
     source: hosted
     version: "4.4.1"

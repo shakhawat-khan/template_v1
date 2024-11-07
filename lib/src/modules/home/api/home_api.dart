@@ -1,9 +1,8 @@
 import 'dart:convert';
 
 import 'package:basic_structure/src/modules/home/model/home_poem_model.dart';
-import 'package:basic_structure/src/services/request_services.dart';
+import 'package:basic_structure/src/services/api_services.dart';
 import 'package:basic_structure/src/url/base_url.dart';
-import 'package:basic_structure/src/utils/log_message.dart';
 
 Future<PoemModel?> getPoemLines() async {
   try {
@@ -12,12 +11,12 @@ Future<PoemModel?> getPoemLines() async {
     );
 
     if (test.statusCode == 200 || test.statusCode == 201) {
-      return PoemModel.fromJson(jsonDecode(test.body));
+      // Parse the response as a List first
+      final List<dynamic> jsonList = jsonDecode(test.body);
+      // Take the first item from the list
+      final Map<String, dynamic> poemJson = jsonList[0];
+      return PoemModel.fromJson(poemJson);
     }
-
-    PoemModel.fromJson(jsonDecode(test.body));
-  } catch (e) {
-    logSmall(message: 'the error is $e');
-  }
+  } catch (e) {}
   return null;
 }

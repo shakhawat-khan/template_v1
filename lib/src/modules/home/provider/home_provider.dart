@@ -4,20 +4,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AsyncPoemNotifier extends AsyncNotifier<PoemModel?> {
   Future<PoemModel?> fetchPoem() async {
-    final json = await getPoemLines();
-    return json;
+    return await getPoemLines();
   }
 
   @override
   Future<PoemModel?> build() async {
     // Load initial todo list from the remote repository
-    return fetchPoem();
+    return await fetchPoem();
   }
 }
 
 // Finally, we are using NotifierProvider to allow the UI to interact with
 // our TodosNotifier class.
-final asyncTodosProvider =
+final asyncPoemProvider =
     AsyncNotifierProvider<AsyncPoemNotifier, PoemModel?>(() {
   return AsyncPoemNotifier();
 });

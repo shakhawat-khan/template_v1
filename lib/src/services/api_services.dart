@@ -1,11 +1,22 @@
 import 'dart:convert';
 
+import 'package:basic_structure/main.dart';
+import 'package:basic_structure/src/utils/custom_talkerLog.dart';
 import 'package:basic_structure/src/utils/log_message.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_interceptor/http/intercepted_client.dart';
+
+import 'package:talker_http_logger/talker_http_logger.dart';
 
 class ApiClient {
   ApiClient();
   static const int timeoutRequest = 60;
+
+  final client = InterceptedClient.build(interceptors: [
+    TalkerHttpLogger(
+      talker: talker,
+    ),
+  ]);
 
   final Map<String, String> _mainHeaders = {
     'Content-Type': 'application/json',
@@ -26,7 +37,7 @@ class ApiClient {
       logMessage(title: "parse url", message: Uri.parse(url));
     }
 
-    http.Response response = await http
+    http.Response response = await client
         .get(
       uri ?? Uri.parse(url),
       headers:
@@ -39,9 +50,12 @@ class ApiClient {
             addedErrorMessage(), 408); // Replace 500 with your http code.
       },
     );
-    logMessage(
-        title: 'get response url: ${uri ?? Uri.parse(url)}',
-        message: response.body);
+    talker.logTyped(
+      ShowResponseLog(
+        'GET: Request URL: ${response.request?.url} \n Response Status: ${response.body}',
+      ),
+    );
+    // talker.log('Response Status: ${response.body}');
     return response;
   }
 
@@ -69,7 +83,7 @@ class ApiClient {
     logMessage(title: 'post body', message: jsonEncode(body));
     logMessage(title: 'post token', message: token);
 
-    http.Response response = await http
+    http.Response response = await client
         .post(
       Uri.parse(url),
       body: jsonEncode(body),
@@ -83,9 +97,14 @@ class ApiClient {
             addedErrorMessage(), 408); // Replace 500 with your http code.
       },
     );
+    talker.logTyped(
+      ShowResponseLog(
+        'POST: Request URL: ${response.request?.url} \n POST BODY:${jsonEncode(body)}  \n Response Status: ${response.body}',
+      ),
+    );
 
-    logMessage(
-        title: 'post response url: ${Uri.parse(url)}', message: response.body);
+    // logMessage(
+    //     title: 'post response url: ${Uri.parse(url)}', message: response.body);
     return response;
   }
 
@@ -109,8 +128,11 @@ class ApiClient {
             addedErrorMessage(), 408); // Replace 500 with your http code.
       },
     );
-    logMessage(
-        title: 'post response url: ${Uri.parse(url)}', message: response.body);
+    talker.logTyped(
+      ShowResponseLog(
+        'DELETE: Request URL: ${response.request?.url} \n Response Status: ${response.body}',
+      ),
+    );
     return response;
   }
 
@@ -133,11 +155,16 @@ class ApiClient {
       Duration(seconds: timeOut ?? timeoutRequest),
       onTimeout: () {
         return http.Response(
-            addedErrorMessage(), 408); // Replace 500 with your http code.
+          addedErrorMessage(),
+          408,
+        ); // Replace 500 with your http code.
       },
     );
-    logMessage(
-        title: 'post response url: ${Uri.parse(url)}', message: response.body);
+    talker.logTyped(
+      ShowResponseLog(
+        'PUT: Request URL: ${response.request?.url} \n Response Status: ${response.body}',
+      ),
+    );
 
     return response;
   }
