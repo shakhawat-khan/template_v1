@@ -79,8 +79,6 @@ class ApiClient {
     Map<String, String>? headers,
     int? timeOut,
   }) async {
-    logMessage(title: 'post url', message: url);
-    logMessage(title: 'post body', message: jsonEncode(body));
     logMessage(title: 'post token', message: token);
 
     http.Response response = await client
