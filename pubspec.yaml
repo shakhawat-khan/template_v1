@@ -46,6 +46,11 @@ dependencies:
   talker_riverpod_logger: ^4.4.1
   talker_http_logger: ^0.1.0-dev.11
   http_interceptor: ^2.0.0
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.5
+
+  
   
 
 dev_dependencies:
@@ -60,6 +65,7 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   json_serializable: ^6.8.0
   build_runner: ^2.4.11
+  isar_generator: ^3.1.0+1
 
 dependency_overrides:
   meta: ^1.14.0
