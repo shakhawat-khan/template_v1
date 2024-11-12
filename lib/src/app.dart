@@ -1,4 +1,5 @@
 import 'package:basic_structure/src/provider/global_provider.dart';
+import 'package:basic_structure/src/themes/themes.dart';
 import 'package:basic_structure/src/utils/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,12 +14,7 @@ class MyApp extends ConsumerWidget {
       routerConfig: ref.watch(goRouterProvider),
       scaffoldMessengerKey: snackbarKey,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-        ),
-        useMaterial3: true,
-      ),
+      theme: ref.watch(themeProvider) == true ? lightTheme : darkTheme,
     );
   }
 }
